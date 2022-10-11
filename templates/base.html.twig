@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Guestbook!{% endblock %}
+		</title>
+
+
+		{% block stylesheets %}
+			<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+			<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+			<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+		{% endblock %}
+
+		{% block javascripts %}
+        
+
+		{% endblock %}
+	</head>
+    <header>
+    <nav class="navbar navbar-light bg-clr">
+	<a class="navbar-brand" href="#">
+	<h4 class="text-white">Guestbook</h4>
+	</a>
+    {% if app.user %}
+			<div class="mb-3 text-white">
+				You are logged in as
+				{{ app.user.userIdentifier }},
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</div>
+		{% endif %}
+  </nav>
+  </header>
+	<body>
+		{% block body %}{% endblock %}
+	</body>
+</html>

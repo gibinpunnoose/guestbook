@@ -1,0 +1,84 @@
+
+{% include 'base.html.twig' %}
+
+
+{% block body %}
+
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div
+					class="col-md-12 col-lg-10">
+					{# <div class="wrap d-md-flex"> #}
+
+					<div class="login-wrap p-4 p-lg-5">
+						<div class="d-flex">
+							<div class="w-100">
+								<h5 class="mb-4">New post</h5>
+							</div>
+
+						</div>
+						{{ form_start(form) }}
+						<div class="form-group mb-3">
+							<label class="label" for="name">Comments</label>
+							{{ form_widget(form.comments ,{ 'attr': {'class': 'form-control'} }) }}
+						</div>
+						<div class="form-group mb-3">
+							<label class="label" for="name">Image</label>
+							{{ form_widget(form.image) }}
+
+							{{ form_widget(form.user_id, { 'attr': {'class': 'd-none', 'value': app.user.id} }) }}
+							{{ form_widget(form.created_date, { 'attr': {'class': 'd-none', 'value': "now"|date("m/d/Y h:i:sa") } }) }}
+							{{ form_widget(form.status, { 'attr': {'class': 'd-none', 'value': 0} }) }}
+
+
+						</div>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						<div class="form-group">
+							<button type="submit" class="form-control btn btn-primary submit px-3">Submit</button>
+						</div>
+						<div class="form-group d-md-flex"></div>
+						{{ form_end(form) }}
+
+					</div>
+					{# </div> #}
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<body>
+		<!-- partial:index.partial.html -->
+		<div class="container-fluid">
+
+			<div class="row justify-content-center">
+
+				{% for post in posts %}
+
+					<div class="col-md-8">
+						<div class="card mb-3">
+							<h5 class="card-header bg-primary text-white">{{ post.first_name }} @ {{ post.created_date }}</h5>
+							<div class="card-body">
+								<p class="card-text">{{ post.comments }}</p>
+                                {% if (post.image) %}
+                                <img src="/uploads/{{ post.image }}" width="200" height="200">
+                                {% else %}
+                                
+
+                                {% endif %}
+
+							</div>
+						</div>
+						<!--/.card-->
+					</div>
+				{% else %}
+					no records found
+				{% endfor %}
+			</div>
+		</div>
+	</body>
+</div>
+<!-- /.row --></div><!-- partial --></body>
+{% endblock %}

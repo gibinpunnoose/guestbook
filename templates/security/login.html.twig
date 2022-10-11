@@ -1,0 +1,62 @@
+{% include 'base.html.twig' %}
+
+
+{% block body %}
+	<form method="post">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+
+		{% if app.user %}
+			<div class="mb-3">
+				You are logged in as
+				{{ app.user.userIdentifier }},
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</div>
+		{% endif %}
+
+		<section class="ftco-section">
+			<div
+				class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-12 col-lg-10">
+						<div class="wrap d-md-flex">
+							<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+								<div class="text w-100">
+									<h2>New Here</h2>
+									<p>Sign up and create your account</p>
+									<a href="/register" class="btn btn-white btn-outline-white">Sign Up</a>
+								</div>
+							</div>
+							<div class="login-wrap p-4 p-lg-5">
+								<div class="d-flex">
+									<div class="w-100">
+										<h3 class="mb-4">Sign In</h3>
+									</div>
+
+								</div>
+								<form action="#" class="signin-form">
+									<div class="form-group mb-3">
+										<label class="label" for="name">Username</label>
+										<input type="text" value="{{ last_username }}" name="email_id" id="inputEmail_id" class="form-control" placeholder="Username" required>
+									</div>
+									<div class="form-group mb-3">
+										<label class="label" for="password">Password</label>
+										<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+									</div>
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									<div class="form-group">
+										<button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+									</div>
+									<div class="form-group d-md-flex"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+	</form>
+{% endblock %}
