@@ -1,0 +1,28 @@
+
+Guestbook Application
+
+Guestbook application  manage by user role. for admin and user having same login page.
+
+#*For Admin*#
+
+for admin login enter admin email id and it will redirect to admin dashboard page. 
+Admin can approve, disapprove and delete post
+
+Email Id : admin@gmail.com
+Password : 123456
+
+#*For User*#
+
+For Users can signup using signup page and the users can post there and view approved post
+
+
+#*Pages*#
+Login Page
+Register Page
+Post View Page
+Admin Dashboard Page
+
+
+
+
+
