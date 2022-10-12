@@ -23,16 +23,16 @@ class PostControllerTest extends WebTestCase
         }
     }
 
-    public function testIndex(): void
-    {
-        $crawler = $this->client->request('GET', $this->path);
+    // public function testIndex(): void
+    // {
+    //     $crawler = $this->client->request('GET', $this->path);
 
-        self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Post index');
+    //     self::assertResponseStatusCodeSame(200);
+    //     self::assertPageTitleContains('Post index');
 
-        // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
-    }
+    //     // Use the $crawler to perform additional assertions e.g.
+    //     // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+    // }
 
     public function testNew(): void
     {
@@ -44,11 +44,11 @@ class PostControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
-            'post[user_id]' => 'Testing',
-            'post[comments]' => 'Testing',
+            'post[user_id]' => '1',
+            'post[comments]' => 'Test comment',
             'post[image]' => 'Testing',
-            'post[created_date]' => 'Testing',
-            'post[status]' => 'Testing',
+            'post[created_date]' => date("Y-m-d H:i:s"),
+            'post[status]' => '0',
         ]);
 
         self::assertResponseRedirects('/post/');
@@ -60,11 +60,11 @@ class PostControllerTest extends WebTestCase
     {
         $this->markTestIncomplete();
         $fixture = new Post();
-        $fixture->setUser_id('My Title');
-        $fixture->setComments('My Title');
+        $fixture->setUserId('2');
+        $fixture->setComments('test comment');
         $fixture->setImage('My Title');
-        $fixture->setCreated_date('My Title');
-        $fixture->setStatus('My Title');
+        $fixture->getCreatedDate(date("Y-m-d H:i:s"));
+        $fixture->setStatus('0');
 
         $this->repository->add($fixture, true);
 
@@ -80,32 +80,28 @@ class PostControllerTest extends WebTestCase
     {
         $this->markTestIncomplete();
         $fixture = new Post();
-        $fixture->setUser_id('My Title');
-        $fixture->setComments('My Title');
+        $fixture->setUserId(1);
+        $fixture->setComments('test comment');
         $fixture->setImage('My Title');
-        $fixture->setCreated_date('My Title');
-        $fixture->setStatus('My Title');
+        $fixture->setCreatedDate(date("Y-m-d H:i:s"));
+        $fixture->setStatus(0);
 
         $this->repository->add($fixture, true);
 
         $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
         $this->client->submitForm('Update', [
-            'post[user_id]' => 'Something New',
-            'post[comments]' => 'Something New',
-            'post[image]' => 'Something New',
-            'post[created_date]' => 'Something New',
-            'post[status]' => 'Something New',
+            'post[status]' => 1,
         ]);
 
         self::assertResponseRedirects('/post/');
 
         $fixture = $this->repository->findAll();
 
-        self::assertSame('Something New', $fixture[0]->getUser_id());
+        self::assertSame('Something New', $fixture[0]->getUserid());
         self::assertSame('Something New', $fixture[0]->getComments());
         self::assertSame('Something New', $fixture[0]->getImage());
-        self::assertSame('Something New', $fixture[0]->getCreated_date());
+        self::assertSame('Something New', $fixture[0]->getCreateddate());
         self::assertSame('Something New', $fixture[0]->getStatus());
     }
 
@@ -116,10 +112,10 @@ class PostControllerTest extends WebTestCase
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Post();
-        $fixture->setUser_id('My Title');
+        $fixture->setUserId('My Title');
         $fixture->setComments('My Title');
         $fixture->setImage('My Title');
-        $fixture->setCreated_date('My Title');
+        $fixture->setCreatedDate('My Title');
         $fixture->setStatus('My Title');
 
         $this->repository->add($fixture, true);
