@@ -15,6 +15,10 @@ Password : 123456
 
 For Users can signup using signup page and the users can post there and view approved post
 
+#*Database *#
+
+Sql file in the root Folder (guestbook.sql)
+
 
 #*Pages*#
 Login Page
