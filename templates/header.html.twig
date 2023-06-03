@@ -17,16 +17,23 @@
 		{% endblock %}
 
 		{% block javascripts %}
-        
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
+
+        
+	<script src="{{ asset('js/main.js') }}"></script>
 		{% endblock %}
 	</head>
     <header>
-    <nav class="navbar navbar-light bg-clr">
+    <nav class="navbar navbar-light bg-clr header-p ">
 	<a class="navbar-brand" href="#">
 	<h4 class="text-white">Guestbook</h4>
 	</a>
+	{{ username }}
+
     {% if app.user %}
+	
 			<div class="mb-3 text-white">
 				You are logged in as
 				{{ app.user.userIdentifier }},
@@ -35,7 +42,5 @@
 		{% endif %}
   </nav>
   </header>
-	<body>
-		{% block body %}{% endblock %}
-	</body>
-</html>
+
+

@@ -1,84 +1,147 @@
-
-{% include 'base.html.twig' %}
-
+{% include 'header.html.twig' %}
 
 {% block body %}
 
+    <header class="page-header">
+        <nav>
+            <a href="#0" aria-label="forecastr logo" class="logo">
+                <img class="user-icon" src="{{ asset('images/profile.png') }}"></a>
+                <span class="user-name">
+                    Gibin
+                                    
+                </span>
+                <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">
+                    <svg width="20" height="20" aria-hidden="true">
+                        <use xlink:href="#down"></use>
+                    </svg>
+                </button>
+                <ul class="admin-menu">
 
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div
-					class="col-md-12 col-lg-10">
-					{# <div class="wrap d-md-flex"> #}
+                    <li class="menu-heading">
+                        <h3>
+                            Settings
+                                                    
+                        </h3>
+                    </li>
+                    <li>
+                        <a href="#0">
+                            <svg>
+                                <use xlink:href="#settings"></use>
+                            </svg>
+                            <span>
+                                Settings
+                                                            
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#0">
+                            <svg>
+                                <use xlink:href="#options"></use>
+                            </svg>
+                            <span>
+                                Options
+                                                            
+                            </span>
+                        </a>
+                    </li>
 
-					<div class="login-wrap p-4 p-lg-5">
-						<div class="d-flex">
-							<div class="w-100">
-								<h5 class="mb-4">New post</h5>
-							</div>
+                </ul>
+            </nav>
+        </header>
+        <section class="page-content">
+            <section class="search-and-user">
 
-						</div>
-						{{ form_start(form) }}
-						<div class="form-group mb-3">
-							<label class="label" for="name">Comments</label>
-							{{ form_widget(form.comments ,{ 'attr': {'class': 'form-control'} }) }}
-						</div>
-						<div class="form-group mb-3">
-							<label class="label" for="name">Image</label>
-							{{ form_widget(form.image) }}
+                <div class="login-wrap p-4 p-lg-5 new-post">
+                    <div class="d-flex">
+                        <div class="w-100">
+                            <h5 class="mb-4">
+                                New post
+                                                            
+                            </h5>
+                        </div>
 
-							{{ form_widget(form.user_id, { 'attr': {'class': 'd-none', 'value': app.user.id} }) }}
-							{{ form_widget(form.created_date, { 'attr': {'class': 'd-none', 'value': "now"|date("m/d/Y h:i:sa") } }) }}
-							{{ form_widget(form.status, { 'attr': {'class': 'd-none', 'value': 0} }) }}
+                    </div>
+                    {{ form_start(form) }}
+                    <div class="form-group mb-3">
+                        <label class="label" for="name">
+                            Comments
+                                                    
+                        </label>
+                        {{ form_widget(form.comments ,{ 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="form-group mb-5">
+                        <label class="label" for="name">
+                            Image
+                                                    
+                        </label>
+                        {{ form_widget(form.image) }}
 
+                        {{ form_widget(form.user_id, { 'attr': {'class': 'd-none', 'value': app.user.id} }) }}
+                        {{ form_widget(form.created_date, { 'attr': {'class': 'd-none', 'value': "now"|date("m/d/Y h:i:sa") } }) }}
+                        {{ form_widget(form.status, { 'attr': {'class': 'd-none', 'value': 0} }) }}
 
-						</div>
-						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-						<div class="form-group">
-							<button type="submit" class="form-control btn btn-primary submit px-3">Submit</button>
-						</div>
-						<div class="form-group d-md-flex"></div>
-						{{ form_end(form) }}
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3 w-25">
+                                Submit
+                                                            
+                            </button>
+                        </div>
+                        <div class="form-group d-md-flex"></div>
+                        {{ form_end(form) }}
 
-					</div>
-					{# </div> #}
-				</div>
-			</div>
-		</div>
-	</section>
+                    </div>
 
+                </section>
+                <section class="grid post-col">
+                    {# table body #}
+                    {% for post in posts %}
 
-	<body>
-		<!-- partial:index.partial.html -->
-		<div class="container-fluid">
+                        <div>
+                            <div>
+                                <h5 class="card-header bg-primary text-white">
+                                    {{ post.first_name }}
+                                    
+                                                                        
+                                    {{ post.created_date }}
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <p class="card-text post-text">
+                                        {{ post.comments }}
+                                    </p>
+                                </div>
+                                <div class="col-4 post-img ">
+                                    {% if (post.image) %}
+                                        <img
+                                            src="/uploads/{{ post.image }}" width="200" height="200">
+                                            {% else %}
 
-			<div class="row justify-content-center">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            no records found
+                                                          	
+                                                    
+                        {% endfor %}
+                    </section>
 
-				{% for post in posts %}
+                    {# display navigation #}
+                    <div class="nav-custm">
+                        <div class="navigation ">
+                            {{ knp_pagination_render(posts) }}
+                        </div>
+                    </div>
 
-					<div class="col-md-8">
-						<div class="card mb-3">
-							<h5 class="card-header bg-primary text-white">{{ post.first_name }} @ {{ post.created_date }}</h5>
-							<div class="card-body">
-								<p class="card-text">{{ post.comments }}</p>
-                                {% if (post.image) %}
-                                <img src="/uploads/{{ post.image }}" width="200" height="200">
-                                {% else %}
-                                
+                </section>
 
-                                {% endif %}
+            </div>
 
-							</div>
-						</div>
-						<!--/.card-->
-					</div>
-				{% else %}
-					no records found
-				{% endfor %}
-			</div>
-		</div>
-	</body>
-</div>
-<!-- /.row --></div><!-- partial --></body>
+        </div>
+    </body>
 {% endblock %}

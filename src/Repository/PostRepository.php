@@ -70,6 +70,7 @@ class PostRepository extends ServiceEntityRepository
             ->select('p.comments,u.email_id,p.id,p.image,p.status,p.created_date')
             ->from('App\Entity\User', 'u')
             ->Join('App\Entity\Post', 'p', 'WITH', 'p.user_id = u.id')
+            ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getArrayResult();
     }
@@ -82,6 +83,7 @@ class PostRepository extends ServiceEntityRepository
             ->from('App\Entity\User', 'u')
             ->Join('App\Entity\Post', 'p', 'WITH', 'p.user_id = u.id')
             ->where('p.status = 1')
+            ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getArrayResult();
     }
