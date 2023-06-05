@@ -7,7 +7,11 @@
             <a href="#0" aria-label="forecastr logo" class="logo">
                 <img class="user-icon" src="{{ asset('images/profile.png') }}"></a>
                 <span class="user-name">
-                    Gibin
+                {% if username is defined  %}
+
+                {{ username }}
+
+            {% endif %}
                                     
                 </span>
                 <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">

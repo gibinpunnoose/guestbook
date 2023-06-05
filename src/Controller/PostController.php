@@ -80,31 +80,8 @@ function new (Request $request, PostRepository $postRepository): Response{
     ]);
 }
 
-#[Route('/{id}', name:'app_post_show', methods:['GET'])]
-function show(Post $post): Response
-    {
-    return $this->render('post/show.html.twig', [
-        'post' => $post,
-    ]);
-}
 
-#[Route('/{id}/edit', name:'app_post_edit', methods:['GET', 'POST'])]
-function edit(Request $request, Post $post, PostRepository $postRepository): Response
-    {
-    $form = $this->createForm(PostType::class, $post);
-    $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        $postRepository->save($post, true);
-
-        return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    return $this->renderForm('post/edit.html.twig', [
-        'post' => $post,
-        'form' => $form,
-    ]);
-}
 
 #[Route('/{id}', name:'app_post_delete', methods:['POST'])]
 function delete(Request $request, Post $post, PostRepository $postRepository): Response
